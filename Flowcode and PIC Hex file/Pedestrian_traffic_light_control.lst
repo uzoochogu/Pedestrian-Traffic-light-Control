@@ -1,0 +1,703 @@
+;/////////////////////////////////////////////////////////////////////////////////
+;// Code Generator: BoostC Compiler - http://www.sourceboost.com
+;// Version       : 7.03
+;// License Type  : Pro License
+;// Limitations   : PIC12,PIC16 max code size:Unlimited, max RAM banks:Unlimited
+;/////////////////////////////////////////////////////////////////////////////////
+
+	ORG 0x00000000
+0000  29C6  	GOTO	_startup
+	ORG 0x00000004
+0004  00FF  	MOVWF Int1Context
+0005  0E03  	SWAPF STATUS, W
+0006  1283  	BCF STATUS, RP0
+0007  1303  	BCF STATUS, RP1
+0008  00B4  	MOVWF Int1BContext
+0009  0E0A  	SWAPF PCLATH, W
+000A  00B5  	MOVWF Int1BContext+D'1'
+000B  0E04  	SWAPF FSR, W
+000C  00B6  	MOVWF Int1BContext+D'2'
+000D  118A  	BCF PCLATH,3
+000E  120A  	BCF PCLATH,4
+000F  29F3  	GOTO	interrupt
+	ORG 0x00000010
+0010        delay_ms_00000
+0010        ; { delay_ms ; function begin
+0010  08C6  	MOVF delay_ms_00000_arg_del, F
+0011  1D03  	BTFSS STATUS,Z
+0012  2814  	GOTO	label1
+0013  0008  	RETURN
+0014        label1
+0014  30F5  	MOVLW 0xF5
+0015        label2
+0015  0000  	NOP
+0016  0000  	NOP
+0017  0000  	NOP
+0018  0000  	NOP
+0019  0000  	NOP
+001A  0000  	NOP
+001B  0000  	NOP
+001C  0000  	NOP
+001D  0000  	NOP
+001E  0000  	NOP
+001F  0000  	NOP
+0020  0000  	NOP
+0021  0000  	NOP
+0022  0000  	NOP
+0023  0000  	NOP
+0024  0000  	NOP
+0025  3EFF  	ADDLW 0xFF
+0026  1D03  	BTFSS STATUS,Z
+0027  2815  	GOTO	label2
+0028  0000  	NOP
+0029  0000  	NOP
+002A  0000  	NOP
+002B  0000  	NOP
+002C  0000  	NOP
+002D  0000  	NOP
+002E  0000  	NOP
+002F  0000  	NOP
+0030  0000  	NOP
+0031  0000  	NOP
+0032  0000  	NOP
+0033  0000  	NOP
+0034  0000  	NOP
+0035  0BC6  	DECFSZ delay_ms_00000_arg_del, F
+0036  2814  	GOTO	label1
+0037  0008  	RETURN
+0038        ; } delay_ms function end
+
+	ORG 0x00000038
+0038        __rom_get_00000
+0038        ; { __rom_get ; function begin
+0038  084B  	MOVF __rom_get_00000_arg_idx, W
+0039  00CC  	MOVWF __rom_get_00000_1_romAddr
+003A  3000  	MOVLW	HIGH( label3 )
+003B  00CD  	MOVWF __rom_get_00000_1_romAddr+D'1'
+003C  3044  	MOVLW	LOW( label3 )
+003D  07CC  	ADDWF __rom_get_00000_1_romAddr, F
+003E  1803  	BTFSC STATUS,C
+003F  0ACD  	INCF __rom_get_00000_1_romAddr+D'1', F
+0040  084D  	MOVF __rom_get_00000_1_romAddr+D'1', W
+0041  008A  	MOVWF PCLATH
+0042  084C  	MOVF __rom_get_00000_1_romAddr, W
+0043  0082  	MOVWF PCL
+0044        label3
+0044  34C0  	RETLW 0xC0
+0045  34F9  	RETLW 0xF9
+0046  34A4  	RETLW 0xA4
+0047  34B0  	RETLW 0xB0
+0048  3499  	RETLW 0x99
+0049  3492  	RETLW 0x92
+004A  3482  	RETLW 0x82
+004B  34F8  	RETLW 0xF8
+004C  3480  	RETLW 0x80
+004D  3498  	RETLW 0x98
+004E        ; } __rom_get function end
+
+	ORG 0x0000004E
+004E        delay_s_00000
+004E        ; { delay_s ; function begin
+004E        label4
+004E  30FA  	MOVLW 0xFA
+004F  00C6  	MOVWF delay_ms_00000_arg_del
+0050  2010  	CALL delay_ms_00000
+0051  30FA  	MOVLW 0xFA
+0052  00C6  	MOVWF delay_ms_00000_arg_del
+0053  2010  	CALL delay_ms_00000
+0054  30FA  	MOVLW 0xFA
+0055  00C6  	MOVWF delay_ms_00000_arg_del
+0056  2010  	CALL delay_ms_00000
+0057  30FA  	MOVLW 0xFA
+0058  00C6  	MOVWF delay_ms_00000_arg_del
+0059  2010  	CALL delay_ms_00000
+005A  0BC5  	DECFSZ delay_s_00000_arg_del, F
+005B  284E  	GOTO	label4
+005C  0008  	RETURN
+005D        ; } delay_s function end
+
+	ORG 0x0000005D
+005D        __rem_8_8_00000
+005D        ; { __rem_8_8 ; function begin
+005D  01CE  	CLRF CompTempVarRet220
+005E  01CC  	CLRF __rem_8_8_00000_1_c
+005F  01CD  	CLRF __rem_8_8_00000_1_i
+0060        label5
+0060  19CD  	BTFSC __rem_8_8_00000_1_i,3
+0061  0008  	RETURN
+0062  1003  	BCF STATUS,C
+0063  0DCC  	RLF __rem_8_8_00000_1_c, F
+0064  0DC8  	RLF __rem_8_8_00000_arg_a, F
+0065  0DCE  	RLF CompTempVarRet220, F
+0066  0849  	MOVF __rem_8_8_00000_arg_b, W
+0067  024E  	SUBWF CompTempVarRet220, W
+0068  1C03  	BTFSS STATUS,C
+0069  286C  	GOTO	label6
+006A  00CE  	MOVWF CompTempVarRet220
+006B  144C  	BSF __rem_8_8_00000_1_c,0
+006C        label6
+006C  0ACD  	INCF __rem_8_8_00000_1_i, F
+006D  2860  	GOTO	label5
+006E        ; } __rem_8_8 function end
+
+	ORG 0x0000006E
+006E        FCD_LED9_L_0005F
+006E        ; { FCD_LED9_LEDOn ; function begin
+006E  1683  	BSF STATUS, RP0
+006F  1303  	BCF STATUS, RP1
+0070  1087  	BCF gbl_trisc,1
+0071  1283  	BCF STATUS, RP0
+0072  1487  	BSF gbl_portc,1
+0073  0008  	RETURN
+0074        ; } FCD_LED9_LEDOn function end
+
+	ORG 0x00000074
+0074        FCD_LED9_L_0005A
+0074        ; { FCD_LED9_LEDOff ; function begin
+0074  1683  	BSF STATUS, RP0
+0075  1303  	BCF STATUS, RP1
+0076  1087  	BCF gbl_trisc,1
+0077  1283  	BCF STATUS, RP0
+0078  1087  	BCF gbl_portc,1
+0079  0008  	RETURN
+007A        ; } FCD_LED9_LEDOff function end
+
+	ORG 0x0000007A
+007A        FCD_LED8_L_0005E
+007A        ; { FCD_LED8_LEDOff ; function begin
+007A  1683  	BSF STATUS, RP0
+007B  1303  	BCF STATUS, RP1
+007C  1007  	BCF gbl_trisc,0
+007D  1283  	BCF STATUS, RP0
+007E  1007  	BCF gbl_portc,0
+007F  0008  	RETURN
+0080        ; } FCD_LED8_LEDOff function end
+
+	ORG 0x00000080
+0080        FCD_LED8_L_00059
+0080        ; { FCD_LED8_LEDOn ; function begin
+0080  1683  	BSF STATUS, RP0
+0081  1303  	BCF STATUS, RP1
+0082  1007  	BCF gbl_trisc,0
+0083  1283  	BCF STATUS, RP0
+0084  1407  	BSF gbl_portc,0
+0085  0008  	RETURN
+0086        ; } FCD_LED8_LEDOn function end
+
+	ORG 0x00000086
+0086        FCD_LED7_L_00066
+0086        ; { FCD_LED7_LEDOn ; function begin
+0086  1683  	BSF STATUS, RP0
+0087  1303  	BCF STATUS, RP1
+0088  1386  	BCF gbl_trisb,7
+0089  1283  	BCF STATUS, RP0
+008A  1786  	BSF gbl_portb,7
+008B  0008  	RETURN
+008C        ; } FCD_LED7_LEDOn function end
+
+	ORG 0x0000008C
+008C        FCD_LED7_L_00058
+008C        ; { FCD_LED7_LEDOff ; function begin
+008C  1683  	BSF STATUS, RP0
+008D  1303  	BCF STATUS, RP1
+008E  1386  	BCF gbl_trisb,7
+008F  1283  	BCF STATUS, RP0
+0090  1386  	BCF gbl_portb,7
+0091  0008  	RETURN
+0092        ; } FCD_LED7_LEDOff function end
+
+	ORG 0x00000092
+0092        FCD_LED6_L_00065
+0092        ; { FCD_LED6_LEDOn ; function begin
+0092  1683  	BSF STATUS, RP0
+0093  1303  	BCF STATUS, RP1
+0094  1306  	BCF gbl_trisb,6
+0095  1283  	BCF STATUS, RP0
+0096  1706  	BSF gbl_portb,6
+0097  0008  	RETURN
+0098        ; } FCD_LED6_LEDOn function end
+
+	ORG 0x00000098
+0098        FCD_LED6_L_00057
+0098        ; { FCD_LED6_LEDOff ; function begin
+0098  1683  	BSF STATUS, RP0
+0099  1303  	BCF STATUS, RP1
+009A  1306  	BCF gbl_trisb,6
+009B  1283  	BCF STATUS, RP0
+009C  1306  	BCF gbl_portb,6
+009D  0008  	RETURN
+009E        ; } FCD_LED6_LEDOff function end
+
+	ORG 0x0000009E
+009E        FCD_LED5_L_00064
+009E        ; { FCD_LED5_LEDOff ; function begin
+009E  1683  	BSF STATUS, RP0
+009F  1303  	BCF STATUS, RP1
+00A0  1286  	BCF gbl_trisb,5
+00A1  1283  	BCF STATUS, RP0
+00A2  1286  	BCF gbl_portb,5
+00A3  0008  	RETURN
+00A4        ; } FCD_LED5_LEDOff function end
+
+	ORG 0x000000A4
+00A4        FCD_LED5_L_00056
+00A4        ; { FCD_LED5_LEDOn ; function begin
+00A4  1683  	BSF STATUS, RP0
+00A5  1303  	BCF STATUS, RP1
+00A6  1286  	BCF gbl_trisb,5
+00A7  1283  	BCF STATUS, RP0
+00A8  1686  	BSF gbl_portb,5
+00A9  0008  	RETURN
+00AA        ; } FCD_LED5_LEDOn function end
+
+	ORG 0x000000AA
+00AA        FCD_LED4_L_00063
+00AA        ; { FCD_LED4_LEDOn ; function begin
+00AA  1683  	BSF STATUS, RP0
+00AB  1303  	BCF STATUS, RP1
+00AC  1206  	BCF gbl_trisb,4
+00AD  1283  	BCF STATUS, RP0
+00AE  1606  	BSF gbl_portb,4
+00AF  0008  	RETURN
+00B0        ; } FCD_LED4_LEDOn function end
+
+	ORG 0x000000B0
+00B0        FCD_LED4_L_00055
+00B0        ; { FCD_LED4_LEDOff ; function begin
+00B0  1683  	BSF STATUS, RP0
+00B1  1303  	BCF STATUS, RP1
+00B2  1206  	BCF gbl_trisb,4
+00B3  1283  	BCF STATUS, RP0
+00B4  1206  	BCF gbl_portb,4
+00B5  0008  	RETURN
+00B6        ; } FCD_LED4_LEDOff function end
+
+	ORG 0x000000B6
+00B6        FCD_LED3_L_00062
+00B6        ; { FCD_LED3_LEDOff ; function begin
+00B6  1683  	BSF STATUS, RP0
+00B7  1303  	BCF STATUS, RP1
+00B8  1186  	BCF gbl_trisb,3
+00B9  1283  	BCF STATUS, RP0
+00BA  1186  	BCF gbl_portb,3
+00BB  0008  	RETURN
+00BC        ; } FCD_LED3_LEDOff function end
+
+	ORG 0x000000BC
+00BC        FCD_LED3_L_00054
+00BC        ; { FCD_LED3_LEDOn ; function begin
+00BC  1683  	BSF STATUS, RP0
+00BD  1303  	BCF STATUS, RP1
+00BE  1186  	BCF gbl_trisb,3
+00BF  1283  	BCF STATUS, RP0
+00C0  1586  	BSF gbl_portb,3
+00C1  0008  	RETURN
+00C2        ; } FCD_LED3_LEDOn function end
+
+	ORG 0x000000C2
+00C2        FCD_LED2_L_0005D
+00C2        ; { FCD_LED2_LEDOn ; function begin
+00C2  1683  	BSF STATUS, RP0
+00C3  1303  	BCF STATUS, RP1
+00C4  1106  	BCF gbl_trisb,2
+00C5  1283  	BCF STATUS, RP0
+00C6  1506  	BSF gbl_portb,2
+00C7  0008  	RETURN
+00C8        ; } FCD_LED2_LEDOn function end
+
+	ORG 0x000000C8
+00C8        FCD_LED2_L_00053
+00C8        ; { FCD_LED2_LEDOff ; function begin
+00C8  1683  	BSF STATUS, RP0
+00C9  1303  	BCF STATUS, RP1
+00CA  1106  	BCF gbl_trisb,2
+00CB  1283  	BCF STATUS, RP0
+00CC  1106  	BCF gbl_portb,2
+00CD  0008  	RETURN
+00CE        ; } FCD_LED2_LEDOff function end
+
+	ORG 0x000000CE
+00CE        FCD_LED1_L_0005C
+00CE        ; { FCD_LED1_LEDOff ; function begin
+00CE  1683  	BSF STATUS, RP0
+00CF  1303  	BCF STATUS, RP1
+00D0  1086  	BCF gbl_trisb,1
+00D1  1283  	BCF STATUS, RP0
+00D2  1086  	BCF gbl_portb,1
+00D3  0008  	RETURN
+00D4        ; } FCD_LED1_LEDOff function end
+
+	ORG 0x000000D4
+00D4        FCD_LED1_L_00052
+00D4        ; { FCD_LED1_LEDOn ; function begin
+00D4  1683  	BSF STATUS, RP0
+00D5  1303  	BCF STATUS, RP1
+00D6  1086  	BCF gbl_trisb,1
+00D7  1283  	BCF STATUS, RP0
+00D8  1486  	BSF gbl_portb,1
+00D9  0008  	RETURN
+00DA        ; } FCD_LED1_LEDOn function end
+
+	ORG 0x000000DA
+00DA        FCD_LED0_L_00061
+00DA        ; { FCD_LED0_LEDOn ; function begin
+00DA  1683  	BSF STATUS, RP0
+00DB  1303  	BCF STATUS, RP1
+00DC  1006  	BCF gbl_trisb,0
+00DD  1283  	BCF STATUS, RP0
+00DE  1406  	BSF gbl_portb,0
+00DF  0008  	RETURN
+00E0        ; } FCD_LED0_LEDOn function end
+
+	ORG 0x000000E0
+00E0        FCD_LED0_L_00051
+00E0        ; { FCD_LED0_LEDOff ; function begin
+00E0  1683  	BSF STATUS, RP0
+00E1  1303  	BCF STATUS, RP1
+00E2  1006  	BCF gbl_trisb,0
+00E3  1283  	BCF STATUS, RP0
+00E4  1006  	BCF gbl_portb,0
+00E5  0008  	RETURN
+00E6        ; } FCD_LED0_LEDOff function end
+
+	ORG 0x000000E6
+00E6        FCM_vehicl_0005B
+00E6        ; { FCM_vehicles_moving ; function begin
+00E6  20E0  	CALL FCD_LED0_L_00051
+00E7  20CE  	CALL FCD_LED1_L_0005C
+00E8  20C2  	CALL FCD_LED2_L_0005D
+00E9  20BC  	CALL FCD_LED3_L_00054
+00EA  20B0  	CALL FCD_LED4_L_00055
+00EB  20A4  	CALL FCD_LED5_L_00056
+00EC  2098  	CALL FCD_LED6_L_00057
+00ED  208C  	CALL FCD_LED7_L_00058
+00EE  207A  	CALL FCD_LED8_L_0005E
+00EF  206E  	CALL FCD_LED9_L_0005F
+00F0  0008  	RETURN
+00F1        ; } FCM_vehicles_moving function end
+
+	ORG 0x000000F1
+00F1        FCM_safety_00000
+00F1        ; { FCM_safety ; function begin
+00F1  20E0  	CALL FCD_LED0_L_00051
+00F2  20D4  	CALL FCD_LED1_L_00052
+00F3  20C8  	CALL FCD_LED2_L_00053
+00F4  20BC  	CALL FCD_LED3_L_00054
+00F5  20B0  	CALL FCD_LED4_L_00055
+00F6  20A4  	CALL FCD_LED5_L_00056
+00F7  2098  	CALL FCD_LED6_L_00057
+00F8  208C  	CALL FCD_LED7_L_00058
+00F9  2080  	CALL FCD_LED8_L_00059
+00FA  2074  	CALL FCD_LED9_L_0005A
+00FB  0008  	RETURN
+00FC        ; } FCM_safety function end
+
+	ORG 0x000000FC
+00FC        FCM_pedest_00060
+00FC        ; { FCM_pedestrian_crossing ; function begin
+00FC  20DA  	CALL FCD_LED0_L_00061
+00FD  20CE  	CALL FCD_LED1_L_0005C
+00FE  20C8  	CALL FCD_LED2_L_00053
+00FF  20B6  	CALL FCD_LED3_L_00062
+0100  20AA  	CALL FCD_LED4_L_00063
+0101  209E  	CALL FCD_LED5_L_00064
+0102  2092  	CALL FCD_LED6_L_00065
+0103  2086  	CALL FCD_LED7_L_00066
+0104  207A  	CALL FCD_LED8_L_0005E
+0105  2074  	CALL FCD_LED9_L_0005A
+0106  0008  	RETURN
+0107        ; } FCM_pedestrian_crossing function end
+
+	ORG 0x00000107
+0107        FCD_led7se_00069
+0107        ; { FCD_led7seg0_ClearDigit ; function begin
+0107  1683  	BSF STATUS, RP0
+0108  1303  	BCF STATUS, RP1
+0109  1107  	BCF gbl_trisc,2
+010A  1283  	BCF STATUS, RP0
+010B  1107  	BCF gbl_portc,2
+010C  0008  	RETURN
+010D        ; } FCD_led7seg0_ClearDigit function end
+
+	ORG 0x0000010D
+010D        FCD_led7se_00067
+010D        ; { FCD_led7seg0_ShowDigit ; function begin
+010D  0844  	MOVF gbl_SEVENSEG1_19_SegmentArray, W
+010E  00CA  	MOVWF __rom_get_00000_arg_objNumb
+010F  0845  	MOVF FCD_led7se_00067_arg_Value, W
+0110  00C8  	MOVWF __rem_8_8_00000_arg_a
+0111  300A  	MOVLW 0x0A
+0112  00C9  	MOVWF __rem_8_8_00000_arg_b
+0113  205D  	CALL __rem_8_8_00000
+0114  084E  	MOVF CompTempVarRet220, W
+0115  00CB  	MOVWF __rom_get_00000_arg_idx
+0116  2038  	CALL __rom_get_00000
+0117  00C7  	MOVWF FCD_led7se_00067_1_cSegmentValue
+0118  08C6  	MOVF FCD_led7se_00067_arg_Decim_00068, F
+0119  118A  	BCF PCLATH,3
+011A  120A  	BCF PCLATH,4
+011B  1903  	BTFSC STATUS,Z
+011C  2920  	GOTO	label7
+011D  307F  	MOVLW 0x7F
+011E  0547  	ANDWF FCD_led7se_00067_1_cSegmentValue, W
+011F  00C7  	MOVWF FCD_led7se_00067_1_cSegmentValue
+0120        label7
+0120  1C47  	BTFSS FCD_led7se_00067_1_cSegmentValue,0
+0121  2927  	GOTO	label8
+0122  1683  	BSF STATUS, RP0
+0123  1008  	BCF gbl_trisd,0
+0124  1283  	BCF STATUS, RP0
+0125  1408  	BSF gbl_portd,0
+0126  292B  	GOTO	label9
+0127        label8
+0127  1683  	BSF STATUS, RP0
+0128  1008  	BCF gbl_trisd,0
+0129  1283  	BCF STATUS, RP0
+012A  1008  	BCF gbl_portd,0
+012B        label9
+012B  1CC7  	BTFSS FCD_led7se_00067_1_cSegmentValue,1
+012C  2932  	GOTO	label10
+012D  1683  	BSF STATUS, RP0
+012E  1088  	BCF gbl_trisd,1
+012F  1283  	BCF STATUS, RP0
+0130  1488  	BSF gbl_portd,1
+0131  2936  	GOTO	label11
+0132        label10
+0132  1683  	BSF STATUS, RP0
+0133  1088  	BCF gbl_trisd,1
+0134  1283  	BCF STATUS, RP0
+0135  1088  	BCF gbl_portd,1
+0136        label11
+0136  1D47  	BTFSS FCD_led7se_00067_1_cSegmentValue,2
+0137  293D  	GOTO	label12
+0138  1683  	BSF STATUS, RP0
+0139  1108  	BCF gbl_trisd,2
+013A  1283  	BCF STATUS, RP0
+013B  1508  	BSF gbl_portd,2
+013C  2941  	GOTO	label13
+013D        label12
+013D  1683  	BSF STATUS, RP0
+013E  1108  	BCF gbl_trisd,2
+013F  1283  	BCF STATUS, RP0
+0140  1108  	BCF gbl_portd,2
+0141        label13
+0141  1DC7  	BTFSS FCD_led7se_00067_1_cSegmentValue,3
+0142  2948  	GOTO	label14
+0143  1683  	BSF STATUS, RP0
+0144  1188  	BCF gbl_trisd,3
+0145  1283  	BCF STATUS, RP0
+0146  1588  	BSF gbl_portd,3
+0147  294C  	GOTO	label15
+0148        label14
+0148  1683  	BSF STATUS, RP0
+0149  1188  	BCF gbl_trisd,3
+014A  1283  	BCF STATUS, RP0
+014B  1188  	BCF gbl_portd,3
+014C        label15
+014C  1E47  	BTFSS FCD_led7se_00067_1_cSegmentValue,4
+014D  2953  	GOTO	label16
+014E  1683  	BSF STATUS, RP0
+014F  1208  	BCF gbl_trisd,4
+0150  1283  	BCF STATUS, RP0
+0151  1608  	BSF gbl_portd,4
+0152  2957  	GOTO	label17
+0153        label16
+0153  1683  	BSF STATUS, RP0
+0154  1208  	BCF gbl_trisd,4
+0155  1283  	BCF STATUS, RP0
+0156  1208  	BCF gbl_portd,4
+0157        label17
+0157  1EC7  	BTFSS FCD_led7se_00067_1_cSegmentValue,5
+0158  295E  	GOTO	label18
+0159  1683  	BSF STATUS, RP0
+015A  1288  	BCF gbl_trisd,5
+015B  1283  	BCF STATUS, RP0
+015C  1688  	BSF gbl_portd,5
+015D  2962  	GOTO	label19
+015E        label18
+015E  1683  	BSF STATUS, RP0
+015F  1288  	BCF gbl_trisd,5
+0160  1283  	BCF STATUS, RP0
+0161  1288  	BCF gbl_portd,5
+0162        label19
+0162  1F47  	BTFSS FCD_led7se_00067_1_cSegmentValue,6
+0163  2969  	GOTO	label20
+0164  1683  	BSF STATUS, RP0
+0165  1308  	BCF gbl_trisd,6
+0166  1283  	BCF STATUS, RP0
+0167  1708  	BSF gbl_portd,6
+0168  296D  	GOTO	label21
+0169        label20
+0169  1683  	BSF STATUS, RP0
+016A  1308  	BCF gbl_trisd,6
+016B  1283  	BCF STATUS, RP0
+016C  1308  	BCF gbl_portd,6
+016D        label21
+016D  1FC7  	BTFSS FCD_led7se_00067_1_cSegmentValue,7
+016E  2974  	GOTO	label22
+016F  1683  	BSF STATUS, RP0
+0170  1388  	BCF gbl_trisd,7
+0171  1283  	BCF STATUS, RP0
+0172  1788  	BSF gbl_portd,7
+0173  2978  	GOTO	label23
+0174        label22
+0174  1683  	BSF STATUS, RP0
+0175  1388  	BCF gbl_trisd,7
+0176  1283  	BCF STATUS, RP0
+0177  1388  	BCF gbl_portd,7
+0178        label23
+0178  1683  	BSF STATUS, RP0
+0179  1107  	BCF gbl_trisc,2
+017A  1283  	BCF STATUS, RP0
+017B  1507  	BSF gbl_portc,2
+017C  0008  	RETURN
+017D        ; } FCD_led7seg0_ShowDigit function end
+
+	ORG 0x0000017D
+017D        main
+017D        ; { main ; function begin
+017D  3007  	MOVLW 0x07
+017E  1683  	BSF STATUS, RP0
+017F  1303  	BCF STATUS, RP1
+0180  009F  	MOVWF gbl_adcon1
+0181  30C0  	MOVLW 0xC0
+0182  0081  	MOVWF gbl_option_reg
+0183        label24
+0183  20E6  	CALL FCM_vehicl_0005B
+0184  3001  	MOVLW 0x01
+0185  1683  	BSF STATUS, RP0
+0186  0405  	IORWF gbl_trisa, W
+0187  0085  	MOVWF gbl_trisa
+0188  3001  	MOVLW 0x01
+0189  1283  	BCF STATUS, RP0
+018A  0505  	ANDWF gbl_porta, W
+018B  00C5  	MOVWF CompTempVar2188
+018C  01C6  	CLRF CompTempVar2189
+018D  0345  	DECF CompTempVar2188, W
+018E  1903  	BTFSC STATUS,Z
+018F  0AC6  	INCF CompTempVar2189, F
+0190  10C3  	BCF gbl_FCV_SWITCH_STATE,1
+0191  0846  	MOVF CompTempVar2189, W
+0192  1D03  	BTFSS STATUS,Z
+0193  14C3  	BSF gbl_FCV_SWITCH_STATE,1
+0194  3002  	MOVLW 0x02
+0195  1683  	BSF STATUS, RP0
+0196  0405  	IORWF gbl_trisa, W
+0197  0085  	MOVWF gbl_trisa
+0198  3002  	MOVLW 0x02
+0199  1283  	BCF STATUS, RP0
+019A  0505  	ANDWF gbl_porta, W
+019B  00C5  	MOVWF CompTempVar2190
+019C  01C6  	CLRF CompTempVar2191
+019D  3002  	MOVLW 0x02
+019E  0245  	SUBWF CompTempVar2190, W
+019F  1903  	BTFSC STATUS,Z
+01A0  0AC6  	INCF CompTempVar2191, F
+01A1  1043  	BCF gbl_FCV_SWITCH2_STATE,0
+01A2  0846  	MOVF CompTempVar2191, W
+01A3  1D03  	BTFSS STATUS,Z
+01A4  1443  	BSF gbl_FCV_SWITCH2_STATE,0
+01A5  2107  	CALL FCD_led7se_00069
+01A6  18C3  	BTFSC gbl_FCV_SWITCH_STATE,1
+01A7  29AA  	GOTO	label25
+01A8  1C43  	BTFSS gbl_FCV_SWITCH2_STATE,0
+01A9  29C4  	GOTO	label28
+01AA        label25
+01AA  20F1  	CALL FCM_safety_00000
+01AB  3005  	MOVLW 0x05
+01AC  00C5  	MOVWF delay_s_00000_arg_del
+01AD  204E  	CALL delay_s_00000
+01AE  20FC  	CALL FCM_pedest_00060
+01AF        label26
+01AF  300A  	MOVLW 0x0A
+01B0  0242  	SUBWF gbl_FCV_COUNTER, W
+01B1  1803  	BTFSC STATUS,C
+01B2  29BD  	GOTO	label27
+01B3  0842  	MOVF gbl_FCV_COUNTER, W
+01B4  00C5  	MOVWF FCD_led7se_00067_arg_Value
+01B5  01C6  	CLRF FCD_led7se_00067_arg_Decim_00068
+01B6  210D  	CALL FCD_led7se_00067
+01B7  3001  	MOVLW 0x01
+01B8  00C5  	MOVWF delay_s_00000_arg_del
+01B9  204E  	CALL delay_s_00000
+01BA  0A42  	INCF gbl_FCV_COUNTER, W
+01BB  00C2  	MOVWF gbl_FCV_COUNTER
+01BC  29AF  	GOTO	label26
+01BD        label27
+01BD  2107  	CALL FCD_led7se_00069
+01BE  20F1  	CALL FCM_safety_00000
+01BF  3005  	MOVLW 0x05
+01C0  00C5  	MOVWF delay_s_00000_arg_del
+01C1  204E  	CALL delay_s_00000
+01C2  20E6  	CALL FCM_vehicl_0005B
+01C3  2983  	GOTO	label24
+01C4        label28
+01C4  20E6  	CALL FCM_vehicl_0005B
+01C5  2983  	GOTO	label24
+01C6        ; } main function end
+
+	ORG 0x000001C6
+01C6        _startup
+01C6  30D5  	MOVLW 0xD5
+01C7  1283  	BCF STATUS, RP0
+01C8  1303  	BCF STATUS, RP1
+01C9  00A0  	MOVWF gbl_14_LSR
+01CA  30C4  	MOVLW 0xC4
+01CB  00A1  	MOVWF gbl_14_LSR+D'1'
+01CC  30BB  	MOVLW 0xBB
+01CD  00A2  	MOVWF gbl_14_LSR+D'2'
+01CE  30DC  	MOVLW 0xDC
+01CF  00A3  	MOVWF gbl_14_LSR+D'3'
+01D0  01A4  	CLRF gbl_15_gbl_aSig
+01D1  01A5  	CLRF gbl_15_gbl_aSig+D'1'
+01D2  01A6  	CLRF gbl_15_gbl_aSig+D'2'
+01D3  01A7  	CLRF gbl_15_gbl_aSig+D'3'
+01D4  01A8  	CLRF gbl_15_gbl_bSig
+01D5  01A9  	CLRF gbl_15_gbl_bSig+D'1'
+01D6  01AA  	CLRF gbl_15_gbl_bSig+D'2'
+01D7  01AB  	CLRF gbl_15_gbl_bSig+D'3'
+01D8  01AC  	CLRF gbl_15_gbl_zSig
+01D9  01AD  	CLRF gbl_15_gbl_zSig+D'1'
+01DA  01AE  	CLRF gbl_15_gbl_zSig+D'2'
+01DB  01AF  	CLRF gbl_15_gbl_zSig+D'3'
+01DC  01BC  	CLRF gbl_15_gbl_aExp
+01DD  01BD  	CLRF gbl_15_gbl_bExp
+01DE  01B7  	CLRF gbl_15_gbl_zExp
+01DF  01B8  	CLRF gbl_15_gbl_zExp+D'1'
+01E0  01BE  	CLRF gbl_15_gbl_aSign
+01E1  01BF  	CLRF gbl_15_gbl_bSign
+01E2  01C0  	CLRF gbl_15_gbl_zSign
+01E3  01C1  	CLRF gbl_15_gbl_zSigZero
+01E4  01B0  	CLRF gbl_15_gbl_ret
+01E5  01B1  	CLRF gbl_15_gbl_ret+D'1'
+01E6  01B2  	CLRF gbl_15_gbl_ret+D'2'
+01E7  01B3  	CLRF gbl_15_gbl_ret+D'3'
+01E8  01BA  	CLRF gbl_float_rounding_mode
+01E9  01BB  	CLRF gbl_float_exception_flags
+01EA  01B9  	CLRF gbl_float_detect_tininess
+01EB  01C2  	CLRF gbl_FCV_COUNTER
+01EC  1043  	BCF gbl_FCV_SWITCH2_STATE,0
+01ED  10C3  	BCF gbl_FCV_SWITCH_STATE,1
+01EE  3000  	MOVLW 0x00
+01EF  00C4  	MOVWF gbl_SEVENSEG1_19_SegmentArray
+01F0  118A  	BCF PCLATH,3
+01F1  120A  	BCF PCLATH,4
+01F2  297D  	GOTO	main
+	ORG 0x000001F3
+01F3        interrupt
+01F3        ; { interrupt ; function begin
+01F3  1283  	BCF STATUS, RP0
+01F4  1303  	BCF STATUS, RP1
+01F5  0E36  	SWAPF Int1BContext+D'2', W
+01F6  0084  	MOVWF FSR
+01F7  0E35  	SWAPF Int1BContext+D'1', W
+01F8  008A  	MOVWF PCLATH
+01F9  0E34  	SWAPF Int1BContext, W
+01FA  0083  	MOVWF STATUS
+01FB  0EFF  	SWAPF Int1Context, F
+01FC  0E7F  	SWAPF Int1Context, W
+01FD  0009  	RETFIE
+01FE        ; } interrupt function end
+
+	ORG 0x00002007
+2007  3F72  	DW 0x3F72
